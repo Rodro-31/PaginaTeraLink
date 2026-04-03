@@ -9,9 +9,14 @@
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">TeraLink</div>
-            <ul class="nav-menu">
+        <nav class="navbar" aria-label="Navegación principal">
+            <a href="#inicio" class="logo">TeraLink</a>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="nav-menu" class="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
                 <li><a href="#servicios">Servicios</a></li>
@@ -20,12 +25,16 @@
     </header>
 
     <main>
-        <div class="hero">
-            <h1>TeraLink</h1>
-            <p class="eslogan">Innovando el futuro con tecnología avanzada</p>
-            <p class="descripcion">Desarrollamos soluciones de software a medida, brindando consultoría de primer nivel para impulsar el crecimiento tecnológico de tu empresa.</p>
-        </div>
-        <div class="carousel" aria-label="Carrusel de prototipo interactivo">
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>TeraLink</h1>
+                <p class="eslogan">Innovando el futuro con tecnología avanzada</p>
+                <p class="descripcion">Desarrollamos soluciones de software a medida, brindando consultoría de primer nivel para impulsar el crecimiento tecnológico de tu empresa.</p>
+            </div>
+        </section>
+
+        <section class="carousel-section">
+            <div class="carousel" aria-label="Carrusel de prototipo interactivo">
             <div class="carousel-track">
                 <article class="carousel-slide active">
                     <div class="image-placeholder">
