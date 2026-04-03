@@ -51,5 +51,25 @@ const resetAutoSlide = () => {
     carouselInterval = setInterval(showNext, 5000);
 };
 
+// Menú móvil toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Abrir menú');
+        });
+    });
+}
+
 // Iniciar carrusel auto
 carouselInterval = setInterval(showNext, 5000);
