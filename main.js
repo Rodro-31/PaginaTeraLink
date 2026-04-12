@@ -1,8 +1,3 @@
-/* =============================================
-   TeraLink — main.js
-   ============================================= */
-
-// ── Smooth scroll ────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -11,13 +6,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ── Header shrink on scroll ──────────────────
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-// ── Hero scroll hint ─────────────────────────
 const heroScroll = document.querySelector('.hero-scroll');
 if (heroScroll) {
     heroScroll.addEventListener('click', () => {
@@ -26,7 +19,6 @@ if (heroScroll) {
     });
 }
 
-// ── Mobile menu ──────────────────────────────
 const menuToggle = document.querySelector('.menu-toggle');
 const navMenu    = document.querySelector('.nav-menu');
 
@@ -45,7 +37,6 @@ if (menuToggle && navMenu) {
     });
 }
 
-// ── Main process carousel ────────────────────
 (function () {
     const slides     = document.querySelectorAll('.carousel-slide');
     const indicators = document.querySelectorAll('.indicator');
@@ -79,7 +70,6 @@ if (menuToggle && navMenu) {
         dot.addEventListener('click', () => { goTo(i); reset(); });
     });
 
-    // Swipe support
     const car = document.querySelector('.carousel');
     if (car) {
         let startX = 0;
@@ -93,38 +83,24 @@ if (menuToggle && navMenu) {
     interval = setInterval(() => goTo(current + 1), 5000);
 })();
 
-// ── Mini carousels (inside service cards) ────
 document.querySelectorAll('.mini-carousel').forEach(wrap => {
     const slides = wrap.querySelectorAll('.mini-slide');
-    const dots   = wrap.querySelectorAll('.mdot');
     const prev   = wrap.querySelector('.mprev');
     const next   = wrap.querySelector('.mnext');
     if (!slides.length) return;
 
-    // Add dots if not present
-    let mdots = wrap.querySelector('.mdots');
-    if (!mdots) {
-        mdots = document.createElement('div');
-        mdots.className = 'mdots';
-        for (let i = 0; i < slides.length; i++) {
-            const dot = document.createElement('button');
-            dot.className = 'mdot';
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); startInterval(); });
-            mdots.appendChild(dot);
-        }
-        wrap.appendChild(mdots);
-    }
+    const mdots = wrap.querySelector('.mdots');
+    if (!mdots) return;
 
     let cur = 0;
     let interval;
 
     const goTo = (index) => {
         slides[cur].classList.remove('active');
-        mdots.children[cur]?.classList.remove('active');
+        dotButtons[cur]?.classList.remove('active');
         cur = (index + slides.length) % slides.length;
         slides[cur].classList.add('active');
-        mdots.children[cur]?.classList.add('active');
+        dotButtons[cur]?.classList.add('active');
     };
 
     const startInterval = () => {
@@ -132,13 +108,13 @@ document.querySelectorAll('.mini-carousel').forEach(wrap => {
         interval = setInterval(() => goTo(cur + 1), 2000);
     };
 
+    const dotButtons = mdots.querySelectorAll('.mdot');
     prev?.addEventListener('click', e => { e.stopPropagation(); goTo(cur - 1); startInterval(); });
     next?.addEventListener('click', e => { e.stopPropagation(); goTo(cur + 1); startInterval(); });
-    mdots.querySelectorAll('.mdot').forEach((dot, i) => {
+    dotButtons.forEach((dot, i) => {
         dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); startInterval(); });
     });
 
-    // Touch/swipe on mini carousel
     let startX = 0;
     wrap.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
     wrap.addEventListener('touchend',   e => {
@@ -149,11 +125,9 @@ document.querySelectorAll('.mini-carousel').forEach(wrap => {
         }
     }, { passive: true });
 
-    // Start auto-advance
     startInterval();
 });
 
-// ── Expandable service cards ─────────────────
 document.querySelectorAll('.svc-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
         const card   = btn.closest('.svc-card');
@@ -163,11 +137,9 @@ document.querySelectorAll('.svc-toggle').forEach(btn => {
         btn.setAttribute('aria-expanded', String(isOpen));
         body.setAttribute('aria-hidden', String(!isOpen));
 
-        // Update button label
         const label = btn.querySelector('span');
         if (label) label.textContent = isOpen ? 'Ver menos' : 'Ver más';
 
-        // Smooth scroll to card if opening and partially off-screen
         if (isOpen) {
             setTimeout(() => {
                 const rect = card.getBoundingClientRect();
@@ -179,10 +151,8 @@ document.querySelectorAll('.svc-toggle').forEach(btn => {
     });
 });
 
-// Allow clicking the .svc-base row to toggle too
 document.querySelectorAll('.svc-base').forEach(base => {
     base.addEventListener('click', function (e) {
-        // Don't double-fire if the button itself was clicked
         if (e.target.closest('.svc-toggle')) return;
         const btn = this.querySelector('.svc-toggle');
         btn?.click();
@@ -190,7 +160,6 @@ document.querySelectorAll('.svc-base').forEach(base => {
     base.style.cursor = 'pointer';
 });
 
-// ── Intersection Observer — fade-in ──────────
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -202,7 +171,6 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ── Stats counter animation ───────────────────
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (!entry.isIntersecting) return;
