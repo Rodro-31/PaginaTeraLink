@@ -833,6 +833,17 @@ footer { background:#060e24; color:rgba(255,255,255,.55); }
 .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.45rem; }
 .footer-col a { color:rgba(255,255,255,.5); text-decoration:none; font-size:.85rem; transition:color var(--t); }
 .footer-col a:hover { color:var(--color-acento); }
+.footer-bottom {
+    position: relative;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,.07);
+}
+.footer-bottom p {
+    margin: 0 0 30px 0;
+    font-size: .85rem;
+    color: rgba(255,255,255,.55);
+}
 
 /* ════════════════════════════════════════
    RESPONSIVE
