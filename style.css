@@ -852,6 +852,67 @@ footer { background:#060e24; color:rgba(255,255,255,.55); margin-bottom: 0; }
     font-size: .85rem;
     color: rgba(255,255,255,.55);
 }
+.footer-bottom-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* X-DEV developer badge (positioned on desktop, responsive on mobile) */
+.footer-dev {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.footer-dev__logo {
+    width: 50px;
+    height: auto;
+    display: block;
+    opacity: 0.30;
+    object-fit: contain;
+}
+.footer-dev__text {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,.65);
+}
+
+/* Responsive: make the developer badge flow in the footer on smaller screens */
+@media (max-width: 768px) {
+    .footer-bottom-content {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+    .footer-dev {
+        position: static;
+        margin: 0;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: center;
+    }
+    .footer-dev__logo { width: 40px; }
+    .footer-dev__text { margin: 0; font-size: 0.85rem; }
+}
+
+/* Desktop: position developer badge to the left of copyright */
+@media (min-width: 1025px) {
+    .footer-bottom-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .footer-dev {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
 
 /* ════════════════════════════════════════
    RESPONSIVE
